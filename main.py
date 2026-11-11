@@ -3,32 +3,44 @@ largura_endereco = 28
 altura_endereco = 40
 comprimento_endereco = 50
 
-# FUNÇÃO VERIFICAR COMPATIBILIDADE
-def verificar_compatibilidade(largura_endereco, altura_endereco, comprimento_endereco):
-    
-    # PEDE AO USUÁRIO AS MEDIDAS
-    largura_produto = float(input("Digite a largura do produto:"))
-    if largura_produto <= 0:
-        print("A largura do produto deve ser maior que zero.")
-        return False
-    altura_produto = float(input("Digite a altura do produto:"))
-    if altura_produto <= 0:
-        print("A altura do produto deve ser maior que zero.")
-        return False
-    comprimento_produto = float(input("Digite o comprimento do produto:"))
-    if comprimento_produto <= 0:
-        print("O comprimento do produto deve ser maior que zero.")
-        return False
 
+# FUNÇÃO PARA VALIDAR MEDIDA
+def validar_medida(nome_medida):
+    valido = 0
+
+    while valido == 0:
+        try:
+            medida = float(input(f"Digite a {nome_medida} do produto:"))
+
+            if medida <= 0:
+                print("Erro, medida menor ou igual a zero")
+                valido = 0
+            else:
+                valido = 1
+
+        except ValueError:
+            valido = 0
+            print("Entrada inválida, insira apenas números")
+    return medida
+
+
+# FUNÇÃO VERIFICAR COMPATIBILIDADE
+def verificar_compatibilidade(largura, altura, comprimento):
+    
     # UTILIZA IF ELSE PARA CONFIRMAR COMPATIBILIDADE
-    if largura_produto <= largura_endereco and altura_produto <= altura_endereco and comprimento_produto <= comprimento_endereco:
+    if largura <= largura_endereco and altura <= altura_endereco and comprimento <= comprimento_endereco:
         return(True)
     else:  
         return(False)
+    
+
+
+largura_produto = validar_medida("largura")
+altura_produto = validar_medida("altura")
+comprimento_produto = validar_medida("comprimento")
 
 # CHAMA A FUNÇÃO   
-resultado = verificar_compatibilidade(largura_endereco, altura_endereco, comprimento_endereco)
-
+resultado = verificar_compatibilidade(largura_produto, altura_produto, comprimento_produto)
 if resultado:
     print("O item cabe no endereço.")
 else:
